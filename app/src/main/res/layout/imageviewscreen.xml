@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Image Saved!"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:layout_centerInParent="true"
+        android:layout_above="@+id/mg"/>
+<RelativeLayout
+    android:layout_centerInParent="true"
+    android:id="@+id/mg"
+    android:layout_width="match_parent"
+    android:layout_height="250dp">
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--android:id="@+id/ind_imageview"/>-->
+    <electionmns.com.electionappmns.Utils.ZoomActivityImageView
+        android:id="@+id/ind_imageview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@+id/mg"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <Button
+                android:text="Share"
+                android:textColor="@color/white"
+                android:background="@drawable/borderhollow"
+                android:layout_width="match_parent"
+                android:id="@+id/btnshare"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <Button
+                android:background="@drawable/borderhollow"
+                android:text="Close"
+                android:id="@+id/btnclose"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/royalblue"
+            android:text="REGISTRATION"
+            android:id="@+id/regg_form"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/regg_ed_fname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="पहिले नाव"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/regg_ed_mname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="मधले नाव"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/regg_ed_lname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="आडनाव"
+            android:paddingLeft="5dp" />
+
+        <TextView
+            android:id="@+id/regg_dob_fname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="जन्म तारीख निवडा"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/regg_email_fname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ई-मेल"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/regg_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="मोबाईल नंबर"
+            android:inputType="number"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/regg_add1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="पत्ता ( ओळ 1)"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/regg_add2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="पत्ता (ओळ 2)"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/regg_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="क्षेत्र"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/regg_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="शहर"
+            android:paddingLeft="5dp" />
+
+        <EditText
+            android:id="@+id/regg_pincode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="पिन कोड"
+            android:paddingLeft="5dp" />
+
+        <!--<EditText-->
+            <!--android:id="@+id/regg_qual"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="enter qualification"-->
+            <!--android:paddingLeft="5dp" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/regg_occ"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="enter occupation"-->
+            <!--android:paddingLeft="5dp" />-->
+
+        <Button
+            android:id="@+id/btng_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SUBMIT"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"/>
+
+
+    </LinearLayout>
+</ScrollView>

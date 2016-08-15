@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/head"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@color/royalblue">
+
+        <TextView
+            android:id="@+id/backarrowpartyworksjpTV"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/backarrow"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/reg_form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="10dp"
+            android:text="पक्षप्रवेश"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/head"
+        android:background="@color/white">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+
+            <EditText
+                android:id="@+id/reg_ed_fname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="पहिले नाव"
+                android:paddingLeft="5dp" />
+
+            <EditText
+                android:id="@+id/reg_ed_mname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="मधले नाव"
+                android:paddingLeft="5dp" />
+
+            <EditText
+                android:id="@+id/reg_ed_lname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="आडनाव"
+                android:paddingLeft="5dp" />
+
+            <TextView
+                android:id="@+id/reg_dob_fname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="जन्म तारीख निवडा"
+                android:paddingLeft="5dp"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/reg_email_fname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ई-मेल"
+                android:paddingLeft="5dp" />
+
+            <EditText
+                android:id="@+id/reg_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="मोबाईल नंबर"
+                android:inputType="number"
+                android:paddingLeft="5dp" />
+
+            <EditText
+                android:id="@+id/reg_add1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="पत्ता ( ओळ 1)"
+                android:paddingLeft="5dp" />
+
+            <EditText
+                android:id="@+id/reg_add2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="पत्ता (ओळ 2)"
+                android:paddingLeft="5dp" />
+
+            <EditText
+                android:id="@+id/reg_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="क्षेत्र"
+                android:paddingLeft="5dp" />
+
+            <EditText
+                android:id="@+id/reg_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="शहर"
+                android:paddingLeft="5dp" />
+
+            <EditText
+                android:id="@+id/reg_pincode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="पिन कोड"
+                android:paddingLeft="5dp" />
+
+            <EditText
+                android:id="@+id/reg_qual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="पात्रता"
+                android:paddingLeft="5dp" />
+
+            <EditText
+                android:id="@+id/reg_occ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="व्यवसाय"
+                android:paddingLeft="5dp" />
+
+            <Button
+                android:id="@+id/btnr_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="SUBMIT"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

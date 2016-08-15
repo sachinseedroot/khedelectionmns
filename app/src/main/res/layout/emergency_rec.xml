@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="CATEGOTY"
+    android:id="@+id/catrec"
+    android:textSize="10sp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:textColor="@android:color/darker_gray"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ABCD"
+        android:textSize="18sp"
+        android:id="@+id/titrec"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/colorPrimary"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_centerInParent="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/img"
+            android:src="@drawable/phone"
+            android:layout_alignParentLeft="true"/>
+        <TextView
+            android:layout_toRightOf="@+id/img"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CATEGOTY"
+            android:autoLink="phone"
+            android:id="@+id/conrec"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            android:textColor="@color/green"/>
+    </RelativeLayout>
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/greycard" />
+</LinearLayout>

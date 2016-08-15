@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MNS Khed</string>
+
+
+    <string name="year1">२०१०-२०११</string>
+    <string name="year2">२०११-२०१२</string>
+    <string name="year3">२०१२-२०१३</string>
+    <string name="year4">२०१३-२०१४</string>
+    <string name="year5">२०१४-२०१५</string>
+    <string name="year6">२०१५-२०१६</string>
+    <string name="backarrow">&#xf104;</string>
+    <string name="share">&#xf1e0;</string>
+    <string name="share_using" >Share:</string>
+    <string name="fa_right_arrow">&#xf105;</string>
+    <string name="calendarFA">&#xf073;</string>
+</resources>
