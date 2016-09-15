@@ -29,7 +29,10 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import electionmns.com.electionappmns.Fragments.DailogFragmentImage;
 import electionmns.com.electionappmns.Models.DailyUpdatesModel;
@@ -121,7 +124,7 @@ public class DailyUpdateAdapters extends RecyclerView
         holder.location.setText(mDataset.get(position).location);
         holder.share.setText("Share " + con.getResources().getString(R.string.share));
 
-        holder.date.setText(mDataset.get(position).date);
+        holder.date.setText(getdatenew(mDataset.get(position).date));
         holder.imgloader1.setVisibility(View.VISIBLE);
         holder.imgloader1.setVisibility(View.VISIBLE);
         if (isNetworkConnected() == true) {
@@ -319,6 +322,21 @@ public class DailyUpdateAdapters extends RecyclerView
             progDailog.dismiss();
         }
 
+    }
+    public String getdatenew(String date){
+        if(!TextUtils.isEmpty(date)){
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd MMM yyyy");
+            try {
+                Date givendate = simpleDateFormat.parse(date);
+                String dates = simpleDateFormat2.format(givendate);
+                return dates;
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return "";
+            }
+        }
+        return "";
     }
 
 }

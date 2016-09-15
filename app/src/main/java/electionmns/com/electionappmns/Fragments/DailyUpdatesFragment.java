@@ -158,10 +158,10 @@ public class DailyUpdatesFragment extends Fragment {
         }
         dailyUpdatesModels = new ArrayList<>();
         String dailyUpdateQuery = "select * from dailyupdates";
-        Cursor cursor = mydatabase.rawQuery(dailyUpdateQuery, null);
-        if (cursor.getCount() > 0) {
-            if (cursor.moveToFirst()) {
-                do {
+                    Cursor cursor = mydatabase.rawQuery(dailyUpdateQuery, null);
+                    if (cursor.getCount() > 0) {
+                        if (cursor.moveToFirst()) {
+                            do {
                     String d_id = cursor.getString(cursor.getColumnIndex("ID"));
                     String d_date = cursor.getString(cursor.getColumnIndex("DATE"));
                     String d_title = cursor.getString(cursor.getColumnIndex("TITLE"));
@@ -202,6 +202,7 @@ public class DailyUpdatesFragment extends Fragment {
             }
             DailyUpdateAdapters mAdapter = new DailyUpdateAdapters(dailyUpdatesModels, mContext,getActivity());
             rec_recycler.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
         }
 
     }

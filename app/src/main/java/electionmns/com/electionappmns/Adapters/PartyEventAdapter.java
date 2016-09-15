@@ -8,13 +8,17 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import electionmns.com.electionappmns.Activities.PartyEventGridActivity;
 import electionmns.com.electionappmns.Models.EmergencyContactModel;
@@ -99,7 +103,7 @@ public class PartyEventAdapter extends RecyclerView
 
         holder.rprt.setText(mDataset.get(position).title);
         holder.rpra.setTypeface(typefaceFA);
-        holder.details.setText(mDataset.get(position).date);
+        holder.details.setText(getdate(mDataset.get(position).date));
         holder.location.setText(mDataset.get(position).location);
         holder.rprptparent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +128,21 @@ public class PartyEventAdapter extends RecyclerView
         public void onItemClick(int position, View v);
     }
 
-
+    public String getdate(String date){
+        if(!TextUtils.isEmpty(date)){
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd MMM yyyy");
+            try {
+                Date givendate = simpleDateFormat.parse(date);
+                String dates = simpleDateFormat2.format(givendate);
+                return dates;
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return "";
+            }
+        }
+        return "";
+    }
 
 
 }

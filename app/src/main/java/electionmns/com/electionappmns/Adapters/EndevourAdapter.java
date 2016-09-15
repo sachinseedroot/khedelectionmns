@@ -39,7 +39,7 @@ public class EndevourAdapter extends RecyclerView
         TextView amount;
         TextView nidhi;
 
-        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+
         public DataObjectHolder(View itemView) {
             super(itemView);
 

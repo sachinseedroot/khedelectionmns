@@ -10,16 +10,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,7 +23,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -37,8 +31,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import electionmns.com.electionappmns.Activities.EndeveourDetailsActivity;
-import electionmns.com.electionappmns.Activities.MainActivity;
-import electionmns.com.electionappmns.Models.DailyUpdatesModel;
 import electionmns.com.electionappmns.R;
 import electionmns.com.electionappmns.Utils.AppConstant;
 import electionmns.com.electionappmns.Utils.AppSettings;
@@ -47,7 +39,7 @@ import electionmns.com.electionappmns.Utils.TypeFaceHelper;
 /**
  * Created by Neha on 6/22/2016.
  */
-public class PartyWorksFragment extends Fragment {
+public class ProblemFragment extends Fragment {
 
     private View view;
     private Typeface fontawesome;
@@ -118,7 +110,7 @@ public class PartyWorksFragment extends Fragment {
                                 }
                             }
 
-                            if (PartyWorksFragment.this.isVisible()) {
+                            if (ProblemFragment.this.isVisible()) {
                                 loadlist();
                             } else {
                                 System.out.println("--------saved-||-list not loaded as page not visible-----");

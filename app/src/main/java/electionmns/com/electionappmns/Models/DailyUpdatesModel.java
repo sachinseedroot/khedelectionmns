@@ -22,7 +22,7 @@ public class DailyUpdatesModel {
     public DailyUpdatesModel(JSONObject  jsonObject) {
 
         id = jsonObject.optString("id");
-        date = getdate(jsonObject.optString("datetime"));
+        date = jsonObject.optString("datetime");
         title = jsonObject.optString("title");
         desc = jsonObject.optString("desc");
         imgUrl1 = jsonObject.optString("img1");
@@ -34,7 +34,7 @@ public class DailyUpdatesModel {
 
     public String getdate(String date){
         if(!TextUtils.isEmpty(date)){
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd MMM yyyy");
             try {
                 Date givendate = simpleDateFormat.parse(date);

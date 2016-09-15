@@ -144,10 +144,11 @@ public class RegistrationActivity extends Activity {
                             String success = response.optString("success");
                             String msg = response.optString("msg");
                             Toast.makeText(mContext, msg.toUpperCase(), Toast.LENGTH_SHORT).show();
-                            if (success.equals("true")) {
+                            if (success.equals("true") || msg.equals("user exists")) {
                                 AppSettings.setisLogin(mContext,true);
                                 moveandfinish();
                             }else{
+
                                 AppSettings.setisLogin(mContext,false);
                             }
                         }

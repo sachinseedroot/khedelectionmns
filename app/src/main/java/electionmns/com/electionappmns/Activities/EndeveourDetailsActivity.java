@@ -51,6 +51,8 @@ public class EndeveourDetailsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enddetails);
         mcontext = this;
+        mydatabase = mcontext.openOrCreateDatabase(AppSettings.getdburl(mcontext), mcontext.MODE_PRIVATE, null);
+        fontawesome = TypeFaceHelper.getInstance(mcontext).getStyleTypeFace(TypeFaceHelper.FONT_AWESOME);
         recycler_end = (RecyclerView) findViewById(R.id.recycler_end);
         TextView backarrowpartyworksDetailsTV = (TextView) findViewById(R.id.backarrowpartyworksDetailsTV);
         backarrowpartyworksDetailsTV.setTypeface(fontawesome);
@@ -60,7 +62,6 @@ public class EndeveourDetailsActivity extends Activity {
                 finish();
             }
         });
-        fontawesome = TypeFaceHelper.getInstance(mcontext).getStyleTypeFace(TypeFaceHelper.FONT_AWESOME);
         TextView hed = (TextView) findViewById(R.id.hed);
 
         partyWorksModels = new ArrayList<>();
@@ -69,6 +70,8 @@ public class EndeveourDetailsActivity extends Activity {
         Intent intent = getIntent();
         if (intent != null) {
             hed.setText(intent.getStringExtra("title"));
+            hed.setTypeface(fontawesome);
+            loaddata(intent.getStringExtra("title"));
         }
     }
 
@@ -79,15 +82,21 @@ public class EndeveourDetailsActivity extends Activity {
         if (cursor.getCount() > 0) {
             if (cursor.moveToFirst()) {
                 do {
-                    String ids = cursor.getString(cursor.getColumnIndex("NEWS"));
+                    String title = cursor.getString(cursor.getColumnIndex("TITLE"));
+                    String nidhi =  cursor.getString(cursor.getColumnIndex("NIDHI"));
+                    String amount =  cursor.getString(cursor.getColumnIndex("AMT"));
                     try {
-                        JSONArray jsonArray = new JSONArray(ids);
-                        if(jsonArray!=null && jsonArray.length()>0){
-                            for (int i =0;i<jsonArray.length();i++){
-                                JSONObject singlenews = jsonArray.optJSONObject(i);
-                                PartyWorksModel partyWorksModel = new PartyWorksModel(singlenews);
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("title",title);
+                        jsonObject.put("nidhi",nidhi);
+                        jsonObject.put("amount",amount);
+
+
+                        if(jsonObject!=null && jsonObject.length()>0){
+
+                                PartyWorksModel partyWorksModel = new PartyWorksModel(jsonObject);
                                 partyWorksModels.add(partyWorksModel);
-                            }
+
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

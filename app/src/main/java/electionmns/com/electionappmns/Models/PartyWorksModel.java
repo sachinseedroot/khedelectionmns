@@ -10,12 +10,14 @@ public class PartyWorksModel {
     public String title;
     public String amount;
     public String nidhi;
+    public String year;
 
     public PartyWorksModel(JSONObject  jsonObject) {
 
         title = jsonObject.optString("title");
         amount = jsonObject.optString("amount");
         nidhi = jsonObject.optString("nidhi");
+        year = jsonObject.optString("year");
 
 
     }
