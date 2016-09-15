@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "752366358881",
+    "firebase_url": "https://mns-khed.firebaseio.com",
+    "project_id": "mns-khed",
+    "storage_bucket": "mns-khed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:752366358881:android:fc2a2dc9ab867c96",
+        "android_client_info": {
+          "package_name": "electionmns.com.electionappmns"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "752366358881-3tagqf9f339jvv55k0h64jokq9ba34sv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "electionmns.com.electionappmns",
+            "certificate_hash": "2BCC734DE4F25887C8BDFB7C3D12C9F924E97A25"
+          }
+        },
+        {
+          "client_id": "752366358881-tg7vd4uiutj1aefrdthl920n6kgd35md.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChe5DNIrzewMvauYZMbP3X7iHw0R6e70Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "752366358881-tg7vd4uiutj1aefrdthl920n6kgd35md.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -21,6 +21,7 @@ public class HomeFragment extends Fragment {
     private RelativeLayout rel_joinparty;
     private RelativeLayout emer_rel;
     private RelativeLayout rel_contact;
+    private RelativeLayout problem_layout;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,12 +37,13 @@ public class HomeFragment extends Fragment {
         rel_joinparty = (RelativeLayout) view.findViewById(R.id.rel_joinparty);
         emer_rel = (RelativeLayout)view.findViewById(R.id.emer_rel);
         rel_contact = (RelativeLayout)view.findViewById(R.id.rel_contact);
+        problem_layout = (RelativeLayout)view.findViewById(R.id.problem_layout);
         partworks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
                 objFragment[0] = new PartyWorksFragment();
-                fm.beginTransaction().setCustomAnimations(R.anim.slideinright,R.anim.slideoutleft);
+//                fm.beginTransaction().setCustomAnimations(R.anim.slideinright,R.anim.slideoutleft);
                 fm.beginTransaction().replace(R.id.frame_main, objFragment[0]).commit();
             }
         });
@@ -51,7 +53,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
                 objFragment[0] = new DailyUpdatesFragment();
-                fm.beginTransaction().setCustomAnimations(R.anim.slideinright,R.anim.slideoutleft);
+//                fm.beginTransaction().setCustomAnimations(R.anim.slideinright,R.anim.slideoutleft);
                 fm.beginTransaction().replace(R.id.frame_main, objFragment[0]).commit();
             }
         });
@@ -60,7 +62,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
                 objFragment[0] = new JoinPartyFragment();
-                fm.beginTransaction().setCustomAnimations(R.anim.slideinright,R.anim.slideoutleft);
+//                fm.beginTransaction().setCustomAnimations(R.anim.slideinright,R.anim.slideoutleft);
                 fm.beginTransaction().replace(R.id.frame_main, objFragment[0]).commit();
             }
         });
@@ -91,6 +93,15 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 FragmentManager fm = getFragmentManager();
                 objFragment[0] = new PartyEventsFragment();
+                //fm.beginTransaction().setCustomAnimations(R.anim.slideinleft,R.anim.slideoutright,R.anim.slideinright,R.anim.slideoutleft);
+                fm.beginTransaction().replace(R.id.frame_main, objFragment[0]).commit();
+            }
+        });
+        problem_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                objFragment[0] = new ProblemFragment();
                 //fm.beginTransaction().setCustomAnimations(R.anim.slideinleft,R.anim.slideoutright,R.anim.slideinright,R.anim.slideoutleft);
                 fm.beginTransaction().replace(R.id.frame_main, objFragment[0]).commit();
             }

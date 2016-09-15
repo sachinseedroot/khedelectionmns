@@ -13,4 +13,7 @@
     <string name="share_using" >Share:</string>
     <string name="fa_right_arrow">&#xf105;</string>
     <string name="calendarFA">&#xf073;</string>
+    <string name="camera">&#xf030;</string>
+    <string name="video">&#xf03d;</string>
+    <string name="file">&#xf0f6;</string>
 </resources>

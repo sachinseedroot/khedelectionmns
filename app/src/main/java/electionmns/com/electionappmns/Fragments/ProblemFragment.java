@@ -12,12 +12,18 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,6 +35,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import electionmns.com.electionappmns.Activities.EndeveourDetailsActivity;
 import electionmns.com.electionappmns.R;
@@ -44,15 +53,17 @@ public class ProblemFragment extends Fragment {
     private View view;
     private Typeface fontawesome;
     private Fragment[] objFragment = {null};
-    private LinearLayout list_topics_lin;
+
     private Context mcontext;
     private ProgressDialog progDailog;
     private SQLiteDatabase mydatabase;
+    private Spinner spinr_problem_type;
+    private JSONObject jsonProbleId;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.partyend, container, false);
+        view = inflater.inflate(R.layout.problem_main, container, false);
         return view;
     }
 
@@ -63,7 +74,7 @@ public class ProblemFragment extends Fragment {
         mydatabase = mcontext.openOrCreateDatabase(AppSettings.getdburl(mcontext), mcontext.MODE_PRIVATE, null);
 
         fontawesome = TypeFaceHelper.getInstance(mcontext).getStyleTypeFace(TypeFaceHelper.FONT_AWESOME);
-        TextView textViewbackpress = (TextView) view.findViewById(R.id.backarrowpartyworksTV);
+        TextView textViewbackpress = (TextView) view.findViewById(R.id.backarrowpromblemTV);
         textViewbackpress.setTypeface(fontawesome);
         textViewbackpress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,175 +84,71 @@ public class ProblemFragment extends Fragment {
                 fm.beginTransaction().replace(R.id.frame_main, objFragment[0]).commit();
             }
         });
-        list_topics_lin = (LinearLayout) view.findViewById(R.id.list_topics_lin);
 
-
-        loadlist();
-        if (isNetworkConnected() == true) {
-            getParttyWorkds(AppConstant.PARTYENDEVOUR);
-        }
-
-
-    }
-
-    public void getParttyWorkds(String url) {
-
-        // loadprogressbar();
-        RequestQueue queue = Volley.newRequestQueue(mcontext);
-        JsonObjectRequest req22 = new JsonObjectRequest(Request.Method.GET, url,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // stoploadprogress();
-                        System.out.println("==========party works=====" + response.toString());
-                        JSONArray jsonArrayResposne = response.optJSONArray("endeavour");
-                        if (jsonArrayResposne != null && jsonArrayResposne.length() > 0) {
-                            for (int i = 0; i < jsonArrayResposne.length(); i++) {
-                                JSONObject singleobect = jsonArrayResposne.optJSONObject(i);
-                                if (singleobect != null && singleobect.length() > 0) {
-                                    String id = singleobect.optString("id");
-                                    String year = singleobect.optString("projectstartyear");
-                                    String nidhi = singleobect.optString("nidhi");
-                                    String amount = singleobect.optString("amount");
-                                    String title = singleobect.optString("title");
-                                    String news = singleobect.toString();
-
-                                    makeinsertcall(id, year, title, nidhi, amount, news);
-                                }
-                            }
-
-                            if (ProblemFragment.this.isVisible()) {
-                                loadlist();
-                            } else {
-                                System.out.println("--------saved-||-list not loaded as page not visible-----");
-                            }
-                        }
-
-                    }
-                }
-
-                , new Response.ErrorListener()
-
-        {
+        spinr_problem_type = (Spinner)view.findViewById(R.id.spinr_problem_type);
+        final EditText probl_desc = (EditText)view.findViewById(R.id.probl_desc);
+        final EditText fname = (EditText)view.findViewById(R.id.fname);
+        final EditText addrs = (EditText)view.findViewById(R.id.addrs);
+        final EditText mob_no = (EditText)view.findViewById(R.id.mob_no);
+        TextView fileattach = (TextView)view.findViewById(R.id.fileattach);
+        fileattach.setText(mcontext.getResources().getString(R.string.camera) + "    "+
+                mcontext.getResources().getString(R.string.video)+"    "+mcontext.getResources().getString(R.string.file));
+        fileattach.setTypeface(fontawesome);
+        Button btnsbunit=(Button)view.findViewById(R.id.btn_submit_proble);
+        btnsbunit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("----------errorPartyWorks------" + error.getMessage());
-                stoploadprogress();
+            public void onClick(View v) {
+                if (isNetworkConnected() == true) {
+                    if (!TextUtils.isEmpty(fname.getText().toString().trim())) {
+                        if (!TextUtils.isEmpty(mob_no.getText().toString().trim())) {
+                            if (!TextUtils.isEmpty(probl_desc.getText().toString().trim())) {
+                                if (!spinr_problem_type.getSelectedItem().toString().equals("-- श्रेणी निवडा --")) {
+                                    String id="";
+                                    if(jsonProbleId!=null && jsonProbleId.length()>0){
+                                        String selected = spinr_problem_type.getSelectedItem().toString();
+                                        id = jsonProbleId.optString(selected);
+                                    }
 
-            }
-        }
-
-        );
-        queue.add(req22);
-
-    }
-
-    private void loadlist() {
-        list_topics_lin.removeAllViews();
-        String partyworksQuery = "select * from partyworks";
-        Cursor cursor = mydatabase.rawQuery(partyworksQuery, null);
-        JSONArray jsonArrayPartyEnd = new JSONArray();
-        if (cursor.getCount() > 0) {
-            if (cursor.moveToFirst()) {
-                do {
-                    String id = cursor.getString(cursor.getColumnIndex("ID"));
-                    String year = cursor.getString(cursor.getColumnIndex("YEAR"));
-                    String title = cursor.getString(cursor.getColumnIndex("TITLE"));
-                    String nidhi = cursor.getString(cursor.getColumnIndex("NIDHI"));
-                    String amt = cursor.getString(cursor.getColumnIndex("AMT"));
-                    //String year = cursor.getString(cursor.getColumnIndex("YEAR"));
-                    try {
-                        JSONObject jsonObjectPE = new JSONObject();
-                        jsonObjectPE.put("year", year);
-                        jsonObjectPE.put("title", title);
-                        jsonObjectPE.put("nidhi", nidhi);
-                        jsonObjectPE.put("amt", amt);
-                        jsonObjectPE.put("id", id);
-                        jsonArrayPartyEnd.put(jsonObjectPE);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                } while (cursor.moveToNext());
-
-            }
-        }
-        cursor.close();
-        if (jsonArrayPartyEnd != null && jsonArrayPartyEnd.length() > 0) {
-            RelativeLayout.LayoutParams layoutParamsRel = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 80);
-            layoutParamsRel.setMargins(15, 15, 15, 15);
-
-            RelativeLayout.LayoutParams layoutParamsTV = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParamsTV.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-            layoutParamsTV.addRule(RelativeLayout.CENTER_VERTICAL);
-            layoutParamsTV.setMargins(20, 0, 0, 0);
-
-            RelativeLayout.LayoutParams layoutParamsArrowTV = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParamsArrowTV.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-            layoutParamsArrowTV.addRule(RelativeLayout.CENTER_VERTICAL);
-            layoutParamsArrowTV.setMargins(0, 0, 25, 0);
-            for (int i = 0; i < jsonArrayPartyEnd.length(); i++) {
-                JSONObject singlenews = jsonArrayPartyEnd.optJSONObject(i);
-                if(singlenews!=null && singlenews.length()>0) {
-                    String yearText = singlenews.optString("year");
-                    RelativeLayout listrel = new RelativeLayout(mcontext);
-                    listrel.setLayoutParams(layoutParamsRel);
-                    listrel.setBackgroundColor(mcontext.getResources().getColor(R.color.deepsaffron));
-
-                    TextView valueTV = new TextView(mcontext);
-                    valueTV.setTextColor(mcontext.getResources().getColor(R.color.white));
-                    valueTV.setText(yearText);
-                    valueTV.setTypeface(fontawesome);
-                    valueTV.setTextSize(18f);
-
-                    TextView rightbackarow = new TextView(mcontext);
-                    rightbackarow.setTextColor(mcontext.getResources().getColor(R.color.white));
-                    rightbackarow.setText(mcontext.getResources().getString(R.string.fa_right_arrow));
-                    rightbackarow.setTypeface(fontawesome);
-                    rightbackarow.setTextSize(20f);
-
-                    valueTV.setLayoutParams(layoutParamsTV);
-                    rightbackarow.setLayoutParams(layoutParamsArrowTV);
-                    listrel.addView(valueTV);
-                    listrel.addView(rightbackarow);
-                    list_topics_lin.addView(listrel);
-                    View v = new View(mcontext);
-                    v.setLayoutParams(new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            5
-                    ));
-                    v.setBackgroundColor(Color.parseColor("#FFFFFF"));
-
-                    list_topics_lin.addView(v);
-
-                    listrel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            RelativeLayout relativeLayout = (RelativeLayout) v;
-                            TextView textView = (TextView) relativeLayout.getChildAt(0);
-                            String year = textView.getText().toString();
-                            System.out.println("------------year-----------" + year);
-                            Intent newintent = new Intent(mcontext, EndeveourDetailsActivity.class);
-                            newintent.putExtra("title", year);
-                            startActivity(newintent);
+                                    System.out.println("----------success_all_data");
+                                    postPartyProblems(AppConstant.PartyAddProblem,id,fname.getText().toString().trim(),
+                                            addrs.getText().toString().trim(),mob_no.getText().toString().trim(),
+                                            probl_desc.getText().toString().trim(),""
+                                            );
+                                } else {
+                                    Toast.makeText(mcontext, "कृपया समस्या प्रकार निवडा", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                probl_desc.setError("Cannot be empty");
+                            }
+                        } else {
+                            mob_no.setError("Cannot be empty");
                         }
-                    });
+                    } else {
+                        fname.setError("Cannot be empty");
+                    }
+                } else {
+                    Toast.makeText(mcontext, "Check nternet connection", Toast.LENGTH_SHORT).show();
                 }
 
             }
+        });
+        if(isNetworkConnected()==true){
+            jsonProbleId = new JSONObject();
+            getParttyWorkds(AppConstant.PARTYPROBLEM_GETCATEGORY);
         }
+
+
+
     }
 
     public void loadprogressbar() {
         if (progDailog == null) {
-            progDailog = new ProgressDialog(mcontext);
+            progDailog = new ProgressDialog(getActivity());
         }
         if (progDailog.isShowing() == false) {
-            progDailog.setMessage("Saving, Please wait...");
+            progDailog.setMessage("Loading, Please wait...");
             progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progDailog.setCancelable(true);
+            progDailog.setCancelable(false);
             progDailog.show();
         }
     }
@@ -255,19 +162,6 @@ public class ProblemFragment extends Fragment {
     }
 
 
-    public void makeinsertcall(String id, String year, String title, String nidhi, String amt, String rawdata) {
-        String partyworksQuery = "select * from partyworks where ID='"+id+"'";
-        Cursor cursor = mydatabase.rawQuery(partyworksQuery, null);
-        if (cursor.getCount() > 0) {
-            System.out.println("----id exist updated----"+id);
-            String insertquery = "update partyworks set YEAR='"+year+"',TITLE='"+title+"',NIDHI='"+nidhi+"',AMT='"+amt+"',RAWDATA='"+rawdata+"' where ID='"+id+"'";
-            mydatabase.execSQL(insertquery);
-        }else{
-            System.out.println("----id new insert----"+id);
-            String insertquery = "insert into partyworks(ID,YEAR,TITLE,NIDHI,AMT,RAWDATA) values('" + id + "','" + year + "','" + title + "','" + nidhi + "','" + amt + "','" + rawdata + "')";
-            mydatabase.execSQL(insertquery);
-        }
-    }
 
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) mcontext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -275,5 +169,99 @@ public class ProblemFragment extends Fragment {
         return cm.getActiveNetworkInfo() != null;
     }
 
+    public void getParttyWorkds(String url) {
+
+         loadprogressbar();
+        RequestQueue queue = Volley.newRequestQueue(mcontext);
+        JsonObjectRequest req22 = new JsonObjectRequest(Request.Method.GET, url,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                         stoploadprogress();
+                        System.out.println("==========party problem=====" + response.toString());
+                        JSONArray jsonArrayResposne = response.optJSONArray("problemtype");
+                        if (jsonArrayResposne != null && jsonArrayResposne.length() > 0) {
+                            List<String> categories = new ArrayList<String>();
+                            categories.add("-- श्रेणी निवडा --");
+                            for (int i = 0; i < jsonArrayResposne.length(); i++) {
+                                JSONObject singleobect = jsonArrayResposne.optJSONObject(i);
+                                if (singleobect != null && singleobect.length() > 0) {
+                                    String id = singleobect.optString("id");
+                                    String name = singleobect.optString("name");
+                                    categories.add(name);
+                                    try {
+                                        jsonProbleId.put("name",id);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+
+
+
+                            if(categories!=null && categories.size()>0) {
+                                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(mcontext, R.layout.spinnertv, categories);
+                                spinr_problem_type.setAdapter(dataAdapter);
+                            }
+                        }
+
+                    }
+                }
+
+                , new Response.ErrorListener()
+
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("----------errorproblem------" + error.getMessage());
+                stoploadprogress();
+
+            }
+        }
+
+        );
+        queue.add(req22);
+
+    }
+    public void postPartyProblems(String url,String pid,String fullname, String fulladrs,String mobile,String desc,String file) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("politicalpartyid",AppConstant.PARTY_KEY);
+            jsonObject.put("problemtypeid",pid);
+            jsonObject.put("fullname",fullname);
+            jsonObject.put("fulladdress",fulladrs);
+            jsonObject.put("mobile",mobile);
+            jsonObject.put("description",desc);
+            jsonObject.put("file",file);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        loadprogressbar();
+        RequestQueue queue = Volley.newRequestQueue(mcontext);
+        JsonObjectRequest req22 = new JsonObjectRequest(Request.Method.POST, url,jsonObject,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        stoploadprogress();
+                        System.out.println("==========problem Saved REsponse=====" + response.toString());
+                    }
+                }
+
+                , new Response.ErrorListener()
+
+        {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("----------errorproblem------" + error.getMessage());
+                stoploadprogress();
+
+            }
+        }
+
+        );
+        queue.add(req22);
+
+    }
 }
 
